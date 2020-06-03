@@ -1,0 +1,57 @@
+// 테이블 생성
+
+Book
+CREATE TABLE Book (
+bookid NUMBER NOT NULL,
+bookname VARCHAR2(40),
+publisher  VARCHAR2(40),
+price NUMBER,
+PRIMARY KEY(Bookid)
+);
+
+Customer
+CREATE TABLE Customer(
+custid NUMBER NOT NULL PRIMARY KEY,
+name VARCHAR2(40),
+address VARCHAR2(50),
+phone VARCHAR2(40)
+);
+
+Orders
+CREATE TABLE Orders(
+orderid NUMBER PRIMARY KEY,
+bookid NUMBER NOT NULL,
+custid NUMBER NOT NULL,
+saleprice NUMBER,
+orderdate DATE,
+FOREIGN KEY(bookid) REFERENCES Book(bookid) ON DELETE CASCADE,
+FOREIGN KEY(custid) REFERENCES Customer(custid) ON DELETE CASCADE
+);
+
+SQL> desc Book;	//테이블 스키마 확인
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ BOOKID                                    NOT NULL NUMBER
+ BOOKNAME                                           VARCHAR2(40)
+ PUBLISHER                                          VARCHAR2(40)
+ PRICE                                              NUMBER
+
+SQL> desc Customer;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ CUSTID                                    NOT NULL NUMBER
+ NAME                                               VARCHAR2(40)
+ ADDRESS                                            VARCHAR2(50)
+ PHONE                                              VARCHAR2(40)
+
+SQL> desc Orders;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ ORDERID                                   NOT NULL NUMBER
+ BOOKID                                    NOT NULL NUMBER
+ CUSTID                                    NOT NULL NUMBER
+ SALEPRICE                                          NUMBER
+ ORDERDATE                                          DATE
+
+
+

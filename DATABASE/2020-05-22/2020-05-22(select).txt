@@ -1,0 +1,17 @@
+1)
+SELECT name
+FROM Book, Customer, Orders
+WHERE Customer.custid=Orders.custid AND Orders.bookid=Book.bookid
+	AND name NOT LIKE '최정훈'
+	AND publisher IN
+	(SELECT publisher FROM Book, Customer, Orders
+	WHERE Customer.custid=Orders.custid AND Orders.bookid=Book.bookid AND name LIKE '최정훈');
+
+2)
+SELECT name
+FROM Customer cu
+WHERE 2>=
+	(SELECT COUNT(DISTINCT publisher)
+	FROM Customer, Orders, Book
+	WHERE Customer.custid=Orders.custid AND Orders.bookid=Book.bookid
+		AND (name LIKE cu.name));

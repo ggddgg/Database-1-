@@ -1,0 +1,154 @@
+icrosoft Windows [Version 10.0.18362.720]
+(c) 2019 Microsoft Corporation. All rights reserved.
+
+C:\Users\user>sqlplus "/as sysdba"		//유저의 비번을 알지 못할 때 접속하는 방법
+
+SQL*Plus: Release 11.2.0.1.0 Production on 금 5월 22 08:36:27 2020
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+
+다음에 접속됨:
+Oracle Database 11g Release 11.2.0.1.0 - 64bit Production
+
+SQL> alter user sys identified by 1234
+  2  ;
+
+사용자가 변경되었습니다.
+
+SQL> alter user system identified by 1234;
+
+사용자가 변경되었습니다.
+
+SQL> select * from all_users;
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+BI                                     90 20/03/25
+PM                                     89 20/03/25
+SH                                     88 20/03/25
+IX                                     87 20/03/25
+OE                                     86 20/03/25
+HR                                     85 20/03/25
+SCOTT                                  84 10/03/30
+OWBSYS_AUDIT                           83 10/03/30
+OWBSYS                                 79 10/03/30
+APEX_030200                            78 10/03/30
+APEX_PUBLIC_USER                       76 10/03/30
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+FLOWS_FILES                            75 10/03/30
+MGMT_VIEW                              74 10/03/30
+SYSMAN                                 72 10/03/30
+SPATIAL_CSW_ADMIN_USR                  70 10/03/30
+SPATIAL_WFS_ADMIN_USR                  67 10/03/30
+MDDATA                                 65 10/03/30
+MDSYS                                  57 10/03/30
+SI_INFORMTN_SCHEMA                     56 10/03/30
+ORDPLUGINS                             55 10/03/30
+ORDDATA                                54 10/03/30
+ORDSYS                                 53 10/03/30
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+OLAPSYS                                61 10/03/30
+ANONYMOUS                              46 10/03/30
+XDB                                    45 10/03/30
+CTXSYS                                 43 10/03/30
+EXFSYS                                 42 10/03/30
+XS$NULL                        2147483638 10/03/30
+WMSYS                                  32 10/03/30
+APPQOSSYS                              31 10/03/30
+DBSNMP                                 30 10/03/30
+ORACLE_OCM                             21 10/03/30
+DIP                                    14 10/03/30
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+OUTLN                                   9 10/03/30
+SYSTEM                                  5 10/03/30
+SYS                                     0 10/03/30
+
+36 개의 행이 선택되었습니다.
+
+SQL> create user smc30201 identified by 1234 default tablespace users temporary tablespace temp profile default;		//유저 생성
+
+사용자가 생성되었습니다.
+
+SQL> grant connect, resource to smc30201;	//연결권한 부여
+
+권한이 부여되었습니다.
+
+SQL> select * from all_users;
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+SMC30201                               91 20/05/22
+BI                                     90 20/03/25
+PM                                     89 20/03/25
+SH                                     88 20/03/25
+IX                                     87 20/03/25
+OE                                     86 20/03/25
+HR                                     85 20/03/25
+SCOTT                                  84 10/03/30
+OWBSYS_AUDIT                           83 10/03/30
+OWBSYS                                 79 10/03/30
+APEX_030200                            78 10/03/30
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+APEX_PUBLIC_USER                       76 10/03/30
+FLOWS_FILES                            75 10/03/30
+MGMT_VIEW                              74 10/03/30
+SYSMAN                                 72 10/03/30
+SPATIAL_CSW_ADMIN_USR                  70 10/03/30
+SPATIAL_WFS_ADMIN_USR                  67 10/03/30
+MDDATA                                 65 10/03/30
+MDSYS                                  57 10/03/30
+SI_INFORMTN_SCHEMA                     56 10/03/30
+ORDPLUGINS                             55 10/03/30
+ORDDATA                                54 10/03/30
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+ORDSYS                                 53 10/03/30
+OLAPSYS                                61 10/03/30
+ANONYMOUS                              46 10/03/30
+XDB                                    45 10/03/30
+CTXSYS                                 43 10/03/30
+EXFSYS                                 42 10/03/30
+XS$NULL                        2147483638 10/03/30
+WMSYS                                  32 10/03/30
+APPQOSSYS                              31 10/03/30
+DBSNMP                                 30 10/03/30
+ORACLE_OCM                             21 10/03/30
+
+USERNAME                          USER_ID CREATED
+------------------------------ ---------- --------
+DIP                                    14 10/03/30
+OUTLN                                   9 10/03/30
+SYSTEM                                  5 10/03/30
+SYS                                     0 10/03/30
+
+37 개의 행이 선택되었습니다.
+
+SQL> grant create user, create table, create sequence, create view, create session, create SYNONYM to smc30201;		//유저에 권한 부여
+
+권한이 부여되었습니다.
+
+SQL> ALTER user smc30201 ACCOUNT UNLOCK;
+
+사용자가 변경되었습니다.
+
+SQL> commit;	//끝나고 커밋으로 변경사항 적용
+
+커밋이 완료되었습니다.
+
+SQL> show user;
+USER은 "SYS"입니다
+SQL> conn smc30201/1234		// SYS유저에서 SMC30201유저로 변경하는 명령어
+연결되었습니다.
+SQL> show user
+USER은 "SMC30201"입니다
+SQL>

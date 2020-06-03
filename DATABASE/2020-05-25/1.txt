@@ -1,0 +1,55 @@
+
+3)
+SELECT bookname FROM Book b1
+WHERE (SELECT COUNT(Book.bookid) FROM Book, Orders
+WHERE Book.bookid=Orders.bookid
+AND Book.bookid=b1.bookid) >= 0.3* (SELECT COUNT(*) FROM Customer);
+
+
+4-1
+
+INSERT INTO Book(Bookid, bookname, publisher, price)
+VALUES(11, '파이썬으로 자동화하기', '한빛아카데미', 30000);
+
+SELECT * FROM Book;
+
+
+4-2
+
+DELETE FROM Book WHERE publisher LIKE '오렌지미디어';
+
+SELECT * FROM Book;
+
+
+4-3
+
+UPDATE Book SET publisher='한빛미디어'
+WHERE publisher LIKE '한빛아카데미';
+
+SELECT * FROM Book;
+
+
+4-4
+
+CREATE TABLE Bookcompany (
+name VARCHAR2(20) PRIMARY KEY,
+address VARCHAR2(20),
+begin DATE
+);
+
+desc Bookcompany
+
+
+4-5
+
+ALTER TABLE Bookcompany ADD webaddress VARCHAR2(30);
+
+desc Bookcompany;
+
+
+4-6
+
+INSERT INTO Bookcompany(name, address, begin, webaddress)
+VALUES('한빛아카데미', '서울시 마포구', '1993-01-01', 'http://hanbit.co.kr');
+
+SELECT * FROM Bookcompany;
